@@ -1,6 +1,9 @@
 class EventsController < ApplicationController
   def index
     @events = Event.all
+    @calendar_events = @events.flat_map do |e|
+      e.calendar_events(params.fetch(:start_date, Time.zone.now).to_date)
+    end
   end
 
   def show
@@ -44,6 +47,6 @@ class EventsController < ApplicationController
 
   private
   def event_params
-    params.require(:event).permit(:title, :starts_at, :recurring)
+    params.require(:event).permit(:title, :start_time, :recurring)
   end
 end
