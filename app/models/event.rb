@@ -27,7 +27,7 @@ class Event < ApplicationRecord
     else
       end_date = start.end_of_month.end_of_week
       schedule(start_time).occurrences(end_date).map do |date|
-        Event.new(id: id, title: title, start_time: date)
+        Event.new(id: id, title: title, start_time: date, user: user)
       end
     end
   end

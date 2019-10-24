@@ -1,6 +1,11 @@
 class EventsController < ApplicationController
   def index
-    @events = Event.all
+    if params[:e] == 'my-events'
+      @events = Event.where(user: current_user)
+    else
+      @events = Event.all
+    end
+
     @calendar_events = @events.flat_map do |e|
       e.calendar_events(params.fetch(:start_date, Time.zone.now).to_date)
     end
@@ -27,6 +32,9 @@ class EventsController < ApplicationController
 
   def edit
     @event = Event.find(params[:id])
+    if current_user.id != @event.user.id
+      redirect_to events_url, alert: 'This is not your event'
+    end
   end
 
   def update
