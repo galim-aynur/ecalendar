@@ -1,4 +1,6 @@
 class Event < ApplicationRecord
+  belongs_to :user
+
   serialize :recurring, Hash
 
   def recurring=(value)
