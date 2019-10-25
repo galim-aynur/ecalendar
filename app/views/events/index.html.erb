@@ -1,5 +1,10 @@
 <h1>Events</h1>
-<%= link_to 'New event', new_event_path %>
+
+<% if user_signed_in? %>
+  <%= link_to 'New event', new_event_path %>
+  <%= link_to 'Events', events_path %>
+  <%= link_to 'My events', events_path(e: 'my-events') %>
+<% end %>
 
 <hr>
 
@@ -8,6 +13,9 @@
   <% events.each do |event| %>
     <div>
       <%= link_to event.title, event_path(event) %>
+      <% if event.user == current_user %>
+        (<%= link_to 'Edit', edit_event_path(event) %>)
+      <% end %>
     </div>
   <% end %>
 <% end %>
