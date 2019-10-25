@@ -13,22 +13,22 @@
     </div>
   <% end %>
 
-  <p>
-    <%= form.label :title %><br>
-    <%= form.text_field :title %>
-  </p>
+  <div class="form-group">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
 
-  <p>
-    <%= form.label :start_time %><br>
-    <%= form.datetime_select :start_time, order: [:day, :month, :year] %>
-  </p>
+  <div class="form-group">
+    <%= form.label :start_time %>
+    <%= form.date_select :start_time, {order: [:day, :month, :year]}, {class: "form-control"} %>
+  </div>
 
-  <p>
-    <%= form.label :recurring %><br>
-    <%= form.select_recurring :recurring, nil, allow_blank: true %>
-  </p>
+  <div class="form-group">
+    <%= form.label :recurring %>
+    <%= form.select_recurring :recurring, nil, options = {allow_blank: true}, html_options = {class: "form-control"} %>
+  </div>
 
-  <p>
-    <%= form.submit %>
-  </p>
+  <div class="form-group">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
 <% end %>
