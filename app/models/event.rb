@@ -1,4 +1,6 @@
 class Event < ApplicationRecord
+  validates :title, presence: true, length: { minimum: 2 }
+
   belongs_to :user
 
   serialize :recurring, Hash
@@ -12,7 +14,7 @@ class Event < ApplicationRecord
   end
 
   def rule
-    IceCube::Rule.from_hash recurring
+    IceCube::Rule.from_hash(recurring)
   end
 
   def schedule(start)
